@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getBorne, getBornes, addBorne, updateBorne, deleteBorne } from '../controllers/borne'
-import { getVehicule, getVehicules, addVehicule, updateVehicule, deleteVehicule } from '../controllers/vehicule'
+import { getVehicle, getVehicles, addVehicle, updateVehicle, deleteVehicle } from '../controllers/vehicule'
 
 const router = Router();
 
@@ -13,11 +13,11 @@ router.delete('/bornes/:idBorne', deleteBorne)
 
 
 
-router.post('/vehicules', addVehicule)
-router.get('/vehicules', getVehicules)
-router.get('/vehicules/:idVehicule', getVehicule)
-router.put('/vehicules/:idVehicule', updateVehicule)
-router.delete('/vehicules/:idVehicule', deleteVehicule)
+router.post('/vehicles', addVehicle)
+router.get('/vehicles', getVehicles)
+router.get('/vehicles/:idVehicle', getVehicle)
+router.put('/vehicles/:idVehicle', updateVehicle)
+router.delete('/vehicles/:idVehicle', deleteVehicle)
 
 
 

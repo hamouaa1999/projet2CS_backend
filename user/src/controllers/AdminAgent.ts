@@ -38,11 +38,6 @@ export async function getAdminAgents(_req: Request, res: Response) {
 
 export const updateAdminAgent = async (req: Request, res: Response) => {
     
-    if(!req.body.idUtilisateur && !req.body.adresse) {
-        return res.status(400).send({
-            message: "Champs vides"
-        });
-    }
 
     AdminAgent.update({idAdminAgent: parseInt(req.params.adminAgentId)}, {
         idUser: req.body.idUtilisateur,

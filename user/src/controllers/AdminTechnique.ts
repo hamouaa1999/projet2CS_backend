@@ -35,12 +35,6 @@ export async function getAdminTechniques(_req: Request, res: Response) {
 }
 
 export const updateAdminTechnique = async (req: Request, res: Response) => {
-    
-    if(!req.body.idUtilisateur && !req.body.adresse) {
-        return res.status(400).send({
-            message: "Champs vides"
-        });
-    }
 
     AdminTechnique.update({idAdminTech: parseInt(req.params.adminTechniqueId)}, {
         idUser: req.body.idUtilisateur,

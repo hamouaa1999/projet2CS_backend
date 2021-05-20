@@ -30,8 +30,12 @@ export const addUtilisateur = async (req: Request, res: Response) => {
         userType: req.body.type
     })
 
-    await user.save()
-    res.status(200).send(user)
+    await user.save().then((user) => {
+        res.status(200).send(user)
+    }).catch((error) => {
+        console.log(req.body.nom)
+        res.status(400).send({"message": error})
+    })
 }
 
 export async function getUtilisateurs(_req: Request, res: Response) {
@@ -40,12 +44,6 @@ export async function getUtilisateurs(_req: Request, res: Response) {
 }
 
 export const updateUtilisateur = async (req: Request, res: Response) => {
-    
-    if(!req.body.idTypeUtilisateur || !req.body.nom || !req.body.prenom || !req.body.numeroTelephone) {
-        return res.status(400).send({
-            message: "Champs vides"
-        });
-    }
 
     User.update({idUser: parseInt(req.params.userId)}, {
         lastName: req.body.nom,
@@ -55,7 +53,7 @@ export const updateUtilisateur = async (req: Request, res: Response) => {
         userName: req.body.userName
     })
     .then(utilisateur => {
-        res.send(utilisateur);
+        res.status(200).send(utilisateur);
     }).catch(err => {
 
         if(err.kind === 'ObjectId') {
@@ -75,7 +73,7 @@ export const updateUtilisateur = async (req: Request, res: Response) => {
 export const deleteUtilisateur = async (req: Request, res: Response) => {
     User.delete({idUser: parseInt(req.params.userId)})
     .then(() => {
-        res.send({message: "Utilisateur supprimé avec succés!"});
+        res.status(200).send({message: "Utilisateur supprimé avec succés!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
@@ -83,7 +81,7 @@ export const deleteUtilisateur = async (req: Request, res: Response) => {
             });                
         }
         return res.status(500).send({
-            message: "Erreur Serveur"
+            message: "Erreur Serveur " + err
         });
     });
 }

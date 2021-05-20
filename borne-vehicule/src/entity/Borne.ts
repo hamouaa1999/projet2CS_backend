@@ -6,23 +6,23 @@ export class Borne extends BaseEntity {
     @PrimaryGeneratedColumn()
     idBorne: number;
 
-    /*@Column()
+    @Column({nullable: true})
     nbOccupiedPlaces: number;
 
-    @Column()
+    @Column({nullable: true})
     nbTotalPlaces: number;
 
-    @Column()
+    @Column({nullable: true})
     nbMaintenanceAgents: number;
 
 
-    @Column()
+    @Column({nullable: true})
     longitude: string;
 
-    @Column()
-    latitude: string;*/
+    @Column({nullable: true})
+    latitude: string;
 
-    @Column()
+    @Column({nullable: true})
     city: string;
 
 }

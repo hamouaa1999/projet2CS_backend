@@ -1,7 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
 
-@Entity("Vehicule")
-export class Vehicule extends BaseEntity {
+@Entity("Vehicle")
+export class Vehicle extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     idVehicle: number;
@@ -13,10 +13,10 @@ export class Vehicule extends BaseEntity {
     unitpriceperday: number;
 
     @Column()
-    vehiculetype: String;
+    vehicletype: String;
 
     @Column()
-    vehiculebrand: String;
+    vehiclebrand: String;
 
     @Column()
     vehiclemodel: String;

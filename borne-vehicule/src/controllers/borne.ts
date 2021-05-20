@@ -17,37 +17,32 @@ export const getBorne =  (req: Request, res: Response) => {
 
 export const addBorne = async (req: Request, res: Response) => {
     const borne = Borne.create({
-        /*nbOccupiedPlaces: req.body.nbOccupiedPlaces,
+        nbOccupiedPlaces: req.body.nbOccupiedPlaces,
         nbTotalPlaces: req.body.nbTotalPlaces,
         nbMaintenanceAgents: req.body.nbMaintenanceAgents,
         latitude: req.body.latitude,
-        longitude: req.body.longitude,*/
+        longitude: req.body.longitude,
         city: req.body.wilaya
     })
 
-    await borne.save()
+    await borne.save();
     res.status(200).send(borne)
 }
 
 export async function getBornes(_req: Request, res: Response) {
     const bornes = await Borne.find();
-    res.send(200).json(bornes)
+    res.status(200).json(bornes)
 }
 
 export const updateBorne = async (req: Request, res: Response) => {
     
-    if(!req.body.latitude || !req.body.longitude || !req.body.wilaya) {
-        return res.status(400).send({
-            message: "Champs Vides"
-        });
-    }
-
+    
     Borne.update({idBorne: parseInt(req.params.idBorne)}, {
-        /*nbOccupiedPlaces: req.body.nbOccupiedPlaces,
+        nbOccupiedPlaces: req.body.nbOccupiedPlaces,
         nbTotalPlaces: req.body.nbTotalPlaces,
         nbMaintenanceAgents: req.body.nbMaintenanceAgents,
         latitude: req.body.latitude,
-        longitude: req.body.longitude,*/
+        longitude: req.body.longitude,
         city: req.body.wilaya
     })
     .then(borne => {
@@ -76,7 +71,7 @@ export const deleteBorne = async (req: Request, res: Response) => {
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Borne non trouvée id " + req.params.id
+                message: "Borne non trouvée id " + req.params.idBorne
             });                
         }
         return res.status(500).send({

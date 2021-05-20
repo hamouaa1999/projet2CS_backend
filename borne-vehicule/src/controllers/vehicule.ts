@@ -1,64 +1,58 @@
 import { Request, Response } from "express";
-import {Vehicule} from "../entity/Vehicule";
+import {Vehicle} from "../entity/Vehicle";
 
 
-export const getVehicule =  (req: Request, res: Response) => {
+export const getVehicle =  (req: Request, res: Response) => {
 
-    Vehicule.findOne({idVehicle: parseInt(req.params.idVehicule)})
-    .then((vehicule: any) => {
-        res.status(200).send(vehicule);
-    }).catch(() => {
+    Vehicle.findOne({idVehicle: parseInt(req.params.idVehicle)})
+    .then((vehicle: any) => {
+        res.status(200).send(vehicle);
+    }).catch((error) => {
         res.status(500).send({
-            message: "Erreur Serveur"
+            message: "Erreur Serveur " + error
         });
     });
 }
 
-export const addVehicule = async (req: Request, res: Response) => {
-    const vehicule = Vehicule.create({
+export const addVehicle = async (req: Request, res: Response) => {
+    const vehicle = Vehicle.create({
         // There are somme fields missing
         unitpriceperhour: req.body.unitpriceperhour,
         unitpriceperday: req.body.unitpriceperday,
-        vehiculetype: req.body.vehiculetype,
-        vehiculebrand: req.body.vehiculebrand,
+        vehicletype: req.body.vehicletype,
+        vehiclebrand: req.body.vehiclebrand,
         vehiclemodel: req.body.vehiclemodel,
         availability: req.body.availability,
         image: req.body.image
     })
 
-    await vehicule.save()
-    res.status(200).send(vehicule)
+    await vehicle.save()
+    res.status(200).send(vehicle)
 }
 
-export async function getVehicules(_req: Request, res: Response) {
-    const vehicules = await Vehicule.find();
-    res.status(200).json(vehicules)
+export async function getVehicles(_req: Request, res: Response) {
+    const vehicles = await Vehicle.find();
+    res.status(200).json(vehicles)
 }
 
-export const updateVehicule = async (req: Request, res: Response) => {
-    
-    if(!req.body.unitpriceperhour || !req.body.unitpriceperday || !req.body.vehiculetype || !req.body.vehiculebrand || !req.body.vehiclemodel || !req.body.availability || !req.body.image) {
-        return res.status(400).send({
-            message: "Champs Vides"
-        });
-    }
+export const updateVehicle = async (req: Request, res: Response) => {
 
-    Vehicule.update({idVehicle: parseInt(req.params.idVehicule)}, {
+    Vehicle.update({idVehicle: parseInt(req.params.idVehicle)}, {
         unitpriceperhour: req.body.unitpriceperhour,
         unitpriceperday: req.body.unitpriceperday,
-        vehiculetype: req.body.vehiculetype,
-        vehiculebrand: req.body.vehiculebrand,
+        vehicletype: req.body.vehicletype,
+        vehiclebrand: req.body.vehiclebrand,
         vehiclemodel: req.body.vehiclemodel,
         availability: req.body.availability,
         image: req.body.image
     })
-    .then((vehicule: any) => {
-        return res.status(200).send(vehicule);
+    .then((vehicle: any) => {
+        return res.status(200).send(vehicle);
     }).catch((err: { kind: string; }) => {
 
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Vehicule non trouvé"
+                message: "Vehicle non trouvé"
             });                
         }
 
@@ -71,14 +65,14 @@ export const updateVehicule = async (req: Request, res: Response) => {
     
 }
 
-export const deleteVehicule = async (req: Request, res: Response) => {
-    Vehicule.delete({idVehicle: parseInt(req.params.idVehicule)})
+export const deleteVehicle = async (req: Request, res: Response) => {
+    Vehicle.delete({idVehicle: parseInt(req.params.idVehicle)})
     .then(() => {
-        return res.status(200).send({message: "Vehicule supprimée avec succés!"});
+        return res.status(200).send({message: "Vehicle supprimée avec succés!"});
     }).catch((err: { kind: string; name: string; }) => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Vehicule non trouvé"
+                message: "Vehicle non trouvé"
             });                
         }
         return res.status(500).send({

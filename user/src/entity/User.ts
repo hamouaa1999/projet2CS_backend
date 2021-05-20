@@ -7,7 +7,7 @@ export class User extends BaseEntity {
     idUser: number;
 
     @Column()
-    userName: String
+    userName: string
 
     @Column()
     lastName: string;
@@ -19,9 +19,9 @@ export class User extends BaseEntity {
     firstName: string;
 
     @Column()
-    address: number
+    address: string;
 
     @Column()
-    phoneNumber: String
+    phoneNumber: string;
    
 }
